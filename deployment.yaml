@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server
+  labels:
+    app: config-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-server
+  template:
+    metadata:
+      labels:
+        app: config-server
+    spec:
+      containers:
+        - name: config-server
+          image: DOCKERHUB_USERNAME/grading-config-server:IMAGE_TAG_REPLACEMENT
+          ports:
+            - containerPort: 8086
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: stg
+            - name: CONFIG_GIT_URI
+              value: https://github.com/Duong-Vu-practice-workspace/grading-config-test2.git
+            - name: ZIPKIN_ENDPOINT
+              value: http://zipkin-service:9411/api/v2/spans
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8086
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8086
+            initialDelaySeconds: 60
+            periodSeconds: 30
