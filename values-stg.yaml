@@ -5,7 +5,7 @@ replicaCount: 1
 
 image:
   repository: vucongtuanduong/grading-config-server
-  tag: "v1.0.3"
+  tag: "v1.0.4"
   pullPolicy: Always
 
 global:
