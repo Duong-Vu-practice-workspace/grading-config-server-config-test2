@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: config-server
-          image: DOCKERHUB_USERNAME/grading-config-server:IMAGE_TAG_REPLACEMENT
+          image: DOCKERHUB_USERNAME/grading-config-server:v1.0.1
           ports:
             - containerPort: 8086
           env:
