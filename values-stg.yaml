@@ -1,4 +1,5 @@
 name: config-server
+hostname: config
 
 replicaCount: 1
 
